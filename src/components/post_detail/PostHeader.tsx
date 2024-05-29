@@ -14,20 +14,21 @@ const howLongAgo = (dateString: string) => {
   const postDate = new Date();
   postDate.setFullYear(parseInt(dateString.slice(0, 4)));
   postDate.setMonth(parseInt(dateString.slice(6, 8)) - 1);
-  postDate.setDate(parseInt(dateString.slice(11, 13)));
-  const diff = now.getTime() - postDate.getTime();
+  postDate.setDate(parseInt(dateString.slice(10, 12)));
+  const diff = (now.getTime() - postDate.getTime()) / (1000 * 3600 * 24);
 
-  const day = 1000 * 60 * 60 * 24;
-  const month = day * 30;
-  const year = month * 12;
-
-  if (diff > year) {
-    return `${Math.floor(diff / year)}년 전`;
-  } else if (diff > month) {
-    return `${Math.floor(diff / month)}개월 전`;
-  } else {
-    return `${Math.floor(diff / day)}일 전`;
+  if (diff < 1) {
+    return "오늘";
   }
+  const month = diff / 30;
+  if (month < 1) {
+    return `${Math.floor(diff)}일 전`;
+  }
+  const year = month / 12;
+  if (year < 1) {
+    return `${Math.floor(month)}개월 전`;
+  }
+  return `${Math.floor(year)}년 전`;
 };
 
 export const PostHeader = ({ post }: Props) => {
