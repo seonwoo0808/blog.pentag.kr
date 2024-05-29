@@ -217,10 +217,10 @@ export default function Sidebar(props: {
                   Pinned Category
                 </div>
                 <ul role="list" className="-mx-2 mt-2 space-y-1">
-                  {props.pinnedCategory.map((team) => (
-                    <li key={team.dirName}>
+                  {props.pinnedCategory.map((category) => (
+                    <li key={category.dirName}>
                       <Link
-                        href={`/blog/${team.dirName}`}
+                        href={`/blog/${category.dirName}`}
                         // className={classNames(
                         //   team.current
                         //     ? "bg-gray-800 text-white"
@@ -230,10 +230,10 @@ export default function Sidebar(props: {
                         className="group flex gap-x-0.5 rounded-md p-2 text-sm leading-6 font-semibold text-gray-400 hover:text-white hover:bg-gray-800"
                       >
                         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-gray-700 bg-gray-800 text-[0.625rem] font-medium text-gray-400 group-hover:text-white">
-                          {team.dirName.slice(0, 1)}
+                          {category.dirName.slice(0, 1)}
                         </span>
-                        <span className="ml-1.5">{team.publicName}</span>
-                        <span className="font-medium">({team.count})</span>
+                        <span className="ml-1.5">{category.publicName}</span>
+                        <span className="font-medium">({category.count})</span>
                       </Link>
                     </li>
                   ))}
@@ -247,7 +247,7 @@ export default function Sidebar(props: {
                 {props.posts.slice(0, 4).map((post) => (
                   <li key={post.slug}>
                     <Link
-                      href={`/blog/${post.slug}`}
+                      href={`/blog/${post.categoryPath}/${post.slug}`}
                       className="text-gray-400 hover:text-white hover:bg-gray-800 group flex gap-x-3 rounded-md p-2 h-16"
                     >
                       <DocumentIcon
