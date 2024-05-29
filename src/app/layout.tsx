@@ -9,6 +9,7 @@ import {
 } from "@/config/const";
 import Sidebar from "@/components/sidebar/Sidebar";
 import { getCategoryDetailList, getSortedPostList } from "@/lib/post";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,6 +47,7 @@ export default async function RootLayout({
         <main className="py-10 lg:pl-72">
           <div className="px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
+        <GoogleAnalytics gaId="G-GC20TPCG0Z" />
       </body>
     </html>
   );
