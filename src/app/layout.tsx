@@ -41,10 +41,10 @@ export default async function RootLayout({
   const category = await getCategoryDetailList();
 
   return (
-    <html lang="ko-KR" className="h-full bg-white">
-      <body className={inter.className + " h-full"}>
+    <html lang="ko-KR" className="h-full">
+      <body className={inter.className + " h-full bg-slate-50"}>
         <Sidebar posts={posts} pinnedCategory={category} />
-        <main className="py-10 lg:pl-72">
+        <main className="py-10 lg:pl-72 bg-slate-50">
           <div className="px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
         <GoogleAnalytics gaId="G-GC20TPCG0Z" />
