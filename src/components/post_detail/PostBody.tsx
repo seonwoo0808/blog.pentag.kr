@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { MdxComponents } from "../mdx";
 import { Post } from "@/config/types";
 // @ts-expect-error no types
@@ -16,42 +14,33 @@ interface Props {
 
 export const PostBody = ({ post }: Props) => {
   return (
-    <>
-      <Image
-        src={post.thumbnail}
-        alt={post.title}
-        width={800}
-        height={450}
-        className="px-2"
-      />
-      <MDXRemote
-        source={post.content}
-        options={{
-          mdxOptions: {
-            remarkPlugins: [
-              // 깃허브 Flavored 마크다운 지원 추가 (version downgrade)
-              remarkGfm,
-              // 이모티콘 접근성 향상
-              remarkA11yEmoji,
-              // mdx 1줄 개행 지원
-              remarkBreaks,
+    <MDXRemote
+      source={post.content}
+      options={{
+        mdxOptions: {
+          remarkPlugins: [
+            // 깃허브 Flavored 마크다운 지원 추가 (version downgrade)
+            remarkGfm,
+            // 이모티콘 접근성 향상
+            remarkA11yEmoji,
+            // mdx 1줄 개행 지원
+            remarkBreaks,
+          ],
+          rehypePlugins: [
+            // pretty code block
+            [
+              // @ts-ignore
+              rehypePrettyCode,
+              {
+                theme: { dark: "github-dark-dimmed", light: "github-light" },
+              },
             ],
-            rehypePlugins: [
-              // pretty code block
-              [
-                // @ts-ignore
-                rehypePrettyCode,
-                {
-                  theme: { dark: "github-dark-dimmed", light: "github-light" },
-                },
-              ],
-              // toc id를 추가하고 제목을 연결
-              rehypeSlug,
-            ],
-          },
-        }}
-        components={MdxComponents}
-      />
-    </>
+            // toc id를 추가하고 제목을 연결
+            rehypeSlug,
+          ],
+        },
+      }}
+      components={MdxComponents}
+    />
   );
 };
