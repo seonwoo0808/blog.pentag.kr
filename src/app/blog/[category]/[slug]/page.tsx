@@ -10,9 +10,11 @@ import { baseDomain } from "@/config/const";
 import {
   getPostDetail,
   getPostPaths,
+  getSortedPostList,
   parsePostAbstract,
   parseToc,
 } from "@/lib/post";
+import { CategoryNavigation } from "@/components/post_detail/CategoryNavigation";
 
 type Props = {
   params: { category: string; slug: string };
@@ -59,6 +61,13 @@ export function generateStaticParams() {
 
 const PostDetail = async ({ params: { category, slug } }: Props) => {
   const post = await getPostDetail(category, slug);
+  // get post list
+  const postList = await getSortedPostList(category);
+  // find index of current post
+  const currentIndex = postList.findIndex((item) => item.url === post.url);
+  // get previous and next post
+  const prev = postList[currentIndex - 1] ?? null;
+  const next = postList[currentIndex + 1] ?? null;
   const toc = parseToc(post.content);
   return (
     <div className="prose mx-auto w-full max-w-[750px] px-5 dark:prose-invert sm:px-6">
@@ -69,6 +78,7 @@ const PostDetail = async ({ params: { category, slug } }: Props) => {
         <PostBody post={post} />
       </article>
       <hr />
+      <CategoryNavigation category={category} prev={prev} next={next} />
       <Giscus />
       <FloatingButton />
     </div>
