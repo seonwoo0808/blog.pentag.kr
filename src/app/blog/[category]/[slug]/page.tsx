@@ -66,8 +66,8 @@ const PostDetail = async ({ params: { category, slug } }: Props) => {
   // find index of current post
   const currentIndex = postList.findIndex((item) => item.url === post.url);
   // get previous and next post
-  const prev = postList[currentIndex - 1] ?? null;
-  const next = postList[currentIndex + 1] ?? null;
+  const prev = postList[currentIndex + 1] ?? null;
+  const next = postList[currentIndex - 1] ?? null;
   const toc = parseToc(post.content);
   return (
     <div className="prose mx-auto w-full max-w-[750px] px-5 dark:prose-invert sm:px-6">
